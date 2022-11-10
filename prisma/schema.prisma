@@ -1,0 +1,32 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id        String   @id @default(cuid()) @map("user_id")
+  username  String   @unique
+  name      String
+  password  String
+  createdAt DateTime @default(now()) @map("create_at")
+  updatedAt DateTime @updatedAt @map("update_at")
+
+  @@map("users")
+}
+
+model Book {
+  id          String   @id @default(cuid()) @map("book_id")
+  title       String
+  coverUrl    String?  @map("cover_url")
+  authorName  String?  @map("author_name")
+  price       Int
+  description String?
+  createdAt   DateTime @default(now()) @map("create_at")
+  updatedAt   DateTime @updatedAt @map("update_at")
+
+  @@map("books")
+}
