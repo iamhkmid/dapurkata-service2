@@ -14,10 +14,10 @@ export const auth = async (req: Request, res: Response, next: NextFunction) => {
     if (!findUser) throw new Error(JSON.stringify({ statusCode: "401", message: "User not found" }))
     next()
   } catch (error: any) {
-    if (error?.message === "invalid signature")
+    if (error?.message)
       res.status(401).send({
         statusCode: "401",
-        message: "invalid signature"
+        message: error?.message
       })
     else httpCatchError({ error, res })
   }
