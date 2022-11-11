@@ -29,7 +29,9 @@ BookRouter.use("/add", auth, async (req, res) => {
         authorName: req.body.authorName || undefined,
         price: req.body.price || undefined,
         description: req.body.description || undefined,
-        coverUrl: pathFile || undefined
+        coverUrl: pathFile || undefined,
+        status: req.body.status || undefined,
+        publisher: req.body.publisher || undefined
       }
     })
     res.json({ status: "200", data: addBook })
@@ -65,7 +67,9 @@ BookRouter.use("/update", auth, async (req, res) => {
         authorName: req.body?.authorName || undefined,
         price: req.body?.price || undefined,
         description: req.body?.description || undefined,
-        coverUrl: pathFile || undefined
+        coverUrl: pathFile || undefined,
+        status: req.body.status || undefined,
+        publisher: req.body.publisher || undefined
       }
     })
     res.json({ status: "200", data: updateBook })

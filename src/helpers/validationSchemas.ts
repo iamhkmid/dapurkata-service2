@@ -10,7 +10,8 @@ export const addBookSchema = yup.object({
   title: yup.string().required("title is a required field"),
   authorName: yup.string().required("authorName is a required field"),
   price: yup.number().required("price is a required field"),
-  description: yup.string().required("description is a required field")
+  publisher: yup.string().required("description is a required field"),
+  status: yup.string().required("description is a required field"),
 });
 
 export const deleteBookSchema = yup.object({
