@@ -8,12 +8,10 @@ import fs from "fs"
 
 const BookRouter = express.Router();
 
-BookRouter.use("/get", async (req, res, next) => {
+BookRouter.use("/get", async (req, res) => {
   const bookId = req.body.bookId
   if (bookId) {
-    const findBook = await prisma.book.findUnique({
-      where: { id: bookId }
-    });
+    const findBook = await prisma.book.findUnique({ where: { id: bookId } });
     res.send({ statusCode: "200", data: findBook })
   } else {
     const findBook = await prisma.book.findMany()
@@ -21,7 +19,7 @@ BookRouter.use("/get", async (req, res, next) => {
   }
 });
 
-BookRouter.use("/add", auth, async (req, res, next) => {
+BookRouter.use("/add", auth, async (req, res) => {
   try {
     await addBookSchema.validate(req.body);
     const { pathFile } = await saveFile({ dir: "/public/uploads", file: req.body.cover, name: `${new Date().getTime()}-${req.body?.title}`, limit: 1048576 })
@@ -40,7 +38,7 @@ BookRouter.use("/add", auth, async (req, res, next) => {
   }
 });
 
-BookRouter.use("/delete", auth, async (req, res, next) => {
+BookRouter.use("/delete", auth, async (req, res) => {
   try {
     await deleteBookSchema.validate(req.body);
     const deleteBook = await prisma.book.delete({ where: { id: req.body?.bookId } })
@@ -51,7 +49,7 @@ BookRouter.use("/delete", auth, async (req, res, next) => {
   }
 });
 
-BookRouter.use("/update", auth, async (req, res, next) => {
+BookRouter.use("/update", auth, async (req, res) => {
   try {
     await updateBookSchema.validate(req.body);
     const findBook = await prisma.book.findUnique({ where: { id: req.body.bookId } })
