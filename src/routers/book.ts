@@ -22,7 +22,7 @@ BookRouter.use("/get", async (req, res) => {
 BookRouter.use("/add", auth, async (req, res) => {
   try {
     await addBookSchema.validate(req.body);
-    const { pathFile } = await saveFile({ dir: "/public/uploads", file: req.body.cover, name: `${new Date().getTime()}-${req.body?.title}`, limit: 1048576 })
+    const { pathFile } = await saveFile({ dir: "/public/uploads/books", file: req.body.cover, name: `${new Date().getTime()}-${req.body?.title}`, limit: 1048576 })
     const addBook = await prisma.book.create({
       data: {
         title: req.body.title || undefined,
@@ -55,7 +55,7 @@ BookRouter.use("/update", auth, async (req, res) => {
     const findBook = await prisma.book.findUnique({ where: { id: req.body.bookId } })
     let pathFile = undefined;
     if (req.body.cover) {
-      saveFile({ dir: "/public/uploads", file: req.body.cover, name: `${new Date().getTime()}-${findBook?.title}` as string, limit: 1048576 })
+      saveFile({ dir: "/public/uploads/books", file: req.body.cover, name: `${new Date().getTime()}-${findBook?.title}` as string, limit: 1048576 })
         .then(({ pathFile: path }) => pathFile = path)
     }
     const updateBook = await prisma.book.update({

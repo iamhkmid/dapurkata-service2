@@ -19,7 +19,7 @@ model User {
 }
 
 model Book {
-  id          String   @id @default(cuid()) @map("book_id")
+  id          Int      @id @default(autoincrement()) @map("book_id")
   title       String
   coverUrl    String?  @map("cover_url")
   authorName  String?  @map("author_name")
