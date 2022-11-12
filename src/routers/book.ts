@@ -6,6 +6,7 @@ import { auth } from "../middlewares/auth";
 import fs from "fs"
 import { promisify } from "util"
 import { db } from "..";
+import { prisma } from "../prismaClient";
 
 const BookRouter = express.Router();
 
