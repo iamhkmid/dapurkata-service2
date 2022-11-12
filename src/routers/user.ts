@@ -18,28 +18,28 @@ export const createToken = (props: TCreateToken) => {
   });
 };
 
-// userRouter.use("/login", async (req, res, next) => {
-//   try {
-//     await loginSchema.validate(req.body);
-//     const username = decryptRSA(req.body?.username)
-//     const password = decryptRSA(req.body?.password)
+userRouter.use("/login", async (req, res, next) => {
+  try {
+    await loginSchema.validate(req.body);
+    const username = decryptRSA(req.body?.username)
+    const password = decryptRSA(req.body?.password)
 
-//     const findUser = await prisma.user.findUnique({
-//       where: { username },
-//     });
-//     if (!findUser) throw new Error(JSON.stringify({ statusCode: "400", message: "User not found" }))
+    const findUser = await prisma.user.findUnique({
+      where: { username },
+    });
+    if (!findUser) throw new Error(JSON.stringify({ statusCode: "400", message: "User not found" }))
 
-//     const checkPw = await bcrypt.compare(password, findUser!.password);
-//     if (!checkPw) throw new Error(JSON.stringify({ statusCode: "400", message: "incorrect Password" }))
+    const checkPw = await bcrypt.compare(password, findUser!.password);
+    if (!checkPw) throw new Error(JSON.stringify({ statusCode: "400", message: "incorrect Password" }))
 
-//     const token = createToken({
-//       username: findUser!.username,
-//       name: findUser!.name,
-//     });
-//     res.status(200).json({ statusCode: "200", token })
-//   } catch (error: any) {
-//     httpCatchError({error, res})
-//   }
-// });
+    const token = createToken({
+      username: findUser!.username,
+      name: findUser!.name,
+    });
+    res.status(200).json({ statusCode: "200", token })
+  } catch (error: any) {
+    httpCatchError({error, res})
+  }
+});
 
 export default userRouter;
