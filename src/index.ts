@@ -16,8 +16,10 @@ export const db = mysql.createConnection({
   host: process.env.MYSQL_HOST,
   user: process.env.MSQL_USER,
   password: process.env.MSQL_PASSWORD,
-  database: process.env.MYSQL_DB,
+  database: process.env.MYSQL_DB
 });
+
+db.connect();
 
 app.use(express.json({ limit: "5mb" }))
 app.use(express.urlencoded({limit: "5mb", extended: true, parameterLimit: 50000}))
