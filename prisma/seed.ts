@@ -1,4 +1,4 @@
-import { PrismaClient, Prisma } from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
 import bcrypt from "bcrypt"
 
 const prisma = new PrismaClient()
@@ -8,7 +8,7 @@ async function main() {
   const salt = await bcrypt.genSalt();
   let password1 = await bcrypt.hash("Jalawiyata2!", salt);
 
-  const userData: Prisma.UserCreateInput[] = [
+  const userData = [
     {
       name: "dapurkata",
       username: "dapurkata",
@@ -16,7 +16,7 @@ async function main() {
     },
   ]
 
-  const bookData: Prisma.BookCreateInput[] = [
+  const bookData= [
     {
       title: "Jika Kita Tak Pernah Jadi Apa-Apa",
       authorName: "Tere Liye",
