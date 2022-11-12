@@ -11,7 +11,7 @@ export const auth = async (req: Request, res: Response, next: NextFunction) => {
       where: { username: (<any>decoded)["username"] }
     });
     if (!findUser) throw new Error("User not found")
-    next()
+    else next()
   } catch (error: any) {
     res.status(401).send({
       statusCode: "401",

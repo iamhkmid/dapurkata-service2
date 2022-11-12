@@ -21,7 +21,7 @@ BookRouter.use("/get", async (req, res) => {
   }
 });
 
-BookRouter.use("/add", auth, async (req, res) => {
+BookRouter.use("/add", async (req, res) => {
   try {
     await addBookSchema.validate(req.body);
     const { pathFile } = await saveFile({ dir: "/public/uploads/books", file: req.body.cover, name: `${new Date().getTime()}-${req.body?.title}`, limit: 1048576 })
@@ -36,7 +36,7 @@ BookRouter.use("/add", auth, async (req, res) => {
         publisher: req.body.publisher || undefined
       }
     })
-    res.json({ status: "200", data: addBook })
+    res.send({ status: "200", data: addBook }).end()
   } catch (error) {
     httpCatchError({ error, res })
   }
@@ -47,7 +47,7 @@ BookRouter.use("/delete", auth, async (req, res) => {
     await deleteBookSchema.validate(req.body);
     const deleteBook = await prisma.book.delete({ where: { id: req.body?.bookId } })
     if (deleteBook?.coverUrl) fs.unlinkSync(`${process.cwd()}/public${deleteBook?.coverUrl}`);
-    res.json({ status: "200", data: deleteBook })
+    res.send({ status: "200", data: deleteBook })
   } catch (error) {
     httpCatchError({ error, res })
   }
@@ -74,7 +74,7 @@ BookRouter.use("/update", auth, async (req, res) => {
         publisher: req.body.publisher || undefined
       }
     })
-    res.json({ status: "200", data: updateBook })
+    res.send({ status: "200", data: updateBook })
   } catch (error) {
     httpCatchError({ error, res })
   }

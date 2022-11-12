@@ -37,7 +37,7 @@ userRouter.use("/login", async (req, res, next) => {
       username: findUser!.username,
       name: findUser!.name,
     });
-    res.status(200).json({ statusCode: "200", token })
+    res.status(200).send({ statusCode: "200", token })
   } catch (error: any) {
     httpCatchError({error, res})
   }
