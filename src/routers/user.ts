@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import { decryptRSA } from "../helpers/rsa";
 import { httpCatchError } from "../helpers/httpCatchError";
 import { loginSchema } from "../helpers/validationSchemas";
+import { prisma } from "../prismaClient";
 
 const userRouter = express.Router();
 
