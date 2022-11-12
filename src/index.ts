@@ -22,10 +22,13 @@ export const db = mysql.createConnection({
 db.connect();
 
 app.use(express.json({ limit: "5mb" }))
-app.use(express.urlencoded({limit: "5mb", extended: true, parameterLimit: 50000}))
+app.use(express.urlencoded({ limit: "5mb", extended: true, parameterLimit: 50000 }))
 app.use(cors({ credentials: true, origin: "*" }));
 app.use(express.static("public"));
 
+app.use("/", (req, res) => {
+  res.send("Aaaaaaaaaaa")
+})
 app.use("/book", BookRouter)
 app.use("/user", userRouter)
 
