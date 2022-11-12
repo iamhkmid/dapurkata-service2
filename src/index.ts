@@ -26,9 +26,6 @@ app.use(express.urlencoded({ limit: "5mb", extended: true, parameterLimit: 50000
 app.use(cors({ credentials: true, origin: "*" }));
 app.use(express.static("public"));
 
-app.use("/", (req, res) => {
-  res.send("Aaaaaaaaaaa")
-})
 app.use("/book", BookRouter)
 app.use("/user", userRouter)
 
