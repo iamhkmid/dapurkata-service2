@@ -1,6 +1,5 @@
-import { PrismaClient, Prisma } from '@prisma/client'
+import { PrismaClient } from '@prisma/client'
 import bcrypt from "bcrypt"
-import { changeStr } from '../src/helpers/saveFile';
 
 const prisma = new PrismaClient()
 
@@ -9,7 +8,7 @@ async function main() {
   const salt = await bcrypt.genSalt();
   let password1 = await bcrypt.hash("Jalawiyata2!", salt);
 
-  const userData: Prisma.UserCreateInput[] = [
+  const userData = [
     {
       name: "dapurkata",
       username: "dapurkata",
@@ -17,7 +16,7 @@ async function main() {
     },
   ]
 
-  const bookData: Prisma.BookCreateInput[] = [
+  const bookData = [
     {
       title: "Narrative Inquiry For Teacher Education: Learning from the past stories for today and future",
       authorName: "Dr. Nur Arifah Drajati, M.Pd.",
